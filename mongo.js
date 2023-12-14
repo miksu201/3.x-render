@@ -5,9 +5,9 @@ if (process.argv.length<3) {
   process.exit(1)
 }
 
-const password = process.argv[2] 
-const name = process.argv[3] 
-const number = process.argv[4] 
+const password = process.argv[2]
+const name = process.argv[3]
+const number = process.argv[4]
 
 const url =
   `mongodb+srv://Fullstack:${password}@cluster0.v6ljw5x.mongodb.net/phonebook?retryWrites=true&w=majority`
@@ -23,22 +23,22 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 const person = new Person({
-    name: name,
-    number: number,
+  name: name,
+  number: number,
 })
 
 if (process.argv.length === 3){
-    Person.find({}).then(result => {
-        console.log("phonebook:")
-        result.forEach(person => {
-          console.log(`${person.name} ${person.number}`)
-        })
-        mongoose.connection.close()
-      })
+  Person.find({}).then(result => {
+    console.log('phonebook:')
+    result.forEach(person => {
+      console.log(`${person.name} ${person.number}`)
+    })
+    mongoose.connection.close()
+  })
 }else{
-    person.save().then(result => {
-        console.log(`added ${name} number ${number} to phonebook`)
-        mongoose.connection.close()
-      })
+  person.save().then(result => {
+    console.log(`added ${name} number ${number} to phonebook`)
+    mongoose.connection.close()
+  })
 }
 
